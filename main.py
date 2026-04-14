@@ -43,7 +43,7 @@ for i in range(n):
                     
                     if choice.lower() == "yes":
                         tomorrow_slots[slot] += 1
-                        print("✅ Booked for tomorrow")
+                        print("Booked for tomorrow")
                         users.append({
                             "name": name,
                             "age": age,
@@ -55,7 +55,7 @@ for i in range(n):
         
         else:
             current_slots[slot] += 1
-            print("✅ Booking Confirmed")
+            print("Booking Confirmed")
             users.append({
                 "name": name,
                 "age": age,
