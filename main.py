@@ -1,15 +1,14 @@
-in = int(input("Enter number of users: "))
-
 users = []
-
 
 today_slots = {'10 AM': 0, '12 PM': 0, '1 PM': 0}
 tomorrow_slots = {'10 AM': 0, '12 PM': 0, '1 PM': 0}
 
 capacity = 2  
 
-for i in range(n):
-    print(f"\nEnter details of user {i+1}")
+i = 1
+
+while True:
+    print(f"\nEnter details of user {i}")
     
     name = input("Enter name: ")
     age = int(input("Enter age: "))
@@ -32,10 +31,10 @@ for i in range(n):
         slot = input("Select a slot: ")
 
         if slot not in current_slots:
-            print("invalid slot. Try again.")
+            print("Invalid slot. Try again.")
         
         elif current_slots[slot] >= capacity:
-            print("slot full.")
+            print("Slot full.")
             
             if day == "today":
                 if tomorrow_slots[slot] < capacity:
@@ -51,11 +50,11 @@ for i in range(n):
                             "slot": slot
                         })
                         break
-                print("Please select another slot.")
+                print("Select another slot.")
         
         else:
             current_slots[slot] += 1
-            print("Booking Confirmed")
+            print("Booking confirmed")
             users.append({
                 "name": name,
                 "age": age,
@@ -64,6 +63,35 @@ for i in range(n):
             })
             break
 
-print("\n📋 All Appointments:")
+    # 🔥 Ask to continue
+    cont = input("\nDo you want to continue booking? (yes/no): ").lower()
+    
+    if cont != "yes":
+        break
+
+    i += 1
+
+
+print("\nAll Appointments:")
 for u in users:
-    print(f"Name: {u['name']}, Age: {u['age']}, Day: {u['day']}, Slot: {u['slot']}")
+    print(u["name"], u["age"], u["day"], u["slot"])
+
+total_today = sum(today_slots.values())
+total_tomorrow = sum(tomorrow_slots.values())
+
+print("\nTotal bookings today:", total_today)
+print("Total bookings tomorrow:", total_tomorrow)
+
+max_slot = ""
+max_value = 0
+
+for s in today_slots:
+    if today_slots[s] > max_value:
+        max_value = today_slots[s]
+        max_slot = s
+
+print("Most booked slot today:", max_slot)
+
+print("\nRemaining slots today:")
+for s in today_slots:
+    print(s, "->", capacity - today_slots[s])
